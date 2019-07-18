@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -24,7 +25,7 @@ class Chart
     /**
      * @ORM\Column(type="integer")
      */
-    private $timeRange;
+    private $timeRange = 1;
 
     /**
      * @ORM\Column(type="array")

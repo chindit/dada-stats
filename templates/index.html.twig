@@ -3,5 +3,14 @@
 {% block title %}Charts{% endblock %}
 
 {% block body %}
-<p>Actually, there are not charts</p>
+<div class="row">
+	{% for chart in charts %}
+	<div class="col-xs-12 col-md-6 col-lg-6">
+		{{ chart.title }}
+	</div>
+	{% else %}
+		<p>Actually, there are not charts</p>
+	{% endfor %}
+</div>
+
 {% endblock %}

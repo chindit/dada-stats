@@ -33,16 +33,6 @@ class Chart
     private $metrics = [];
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $xAxisLegend;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $yAxisLegend;
-
-    /**
      * @ORM\Column(type="string", length=25)
      */
     private $type;
@@ -79,30 +69,6 @@ class Chart
     public function getMetrics(): ?array
     {
         return $this->metrics;
-    }
-
-    public function setMetrics(array $metrics): self
-    {
-        $this->metrics = $metrics;
-
-        return $this;
-    }
-
-    public function getXAxisLegend(): ?string
-    {
-        return $this->xAxisLegend;
-    }
-
-    public function setXAxisLegend(string $xAxisLegend): self
-    {
-        $this->xAxisLegend = $xAxisLegend;
-
-        return $this;
-    }
-
-    public function getYAxisLegend(): ?string
-    {
-        return $this->yAxisLegend;
     }
 
     public function setYAxisLegend(string $yAxisLegend): self

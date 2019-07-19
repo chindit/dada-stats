@@ -6,6 +6,7 @@ use App\Entity\Chart;
 use App\Services\PollDataService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,7 +30,8 @@ class ChartType extends AbstractType
             ->add('metrics', ChoiceType::class, ['choices' => $this->pollDataService->getPollDataTypeList(), 'multiple' => true])
             ->add('xAxisLegend', TextType::class, ['required' => true, 'attr' => ['maxlength' => 50]])
             ->add('yAxisLegend', TextType::class, ['required' => true, 'attr' => ['maxlength' => 50]])
-            ->add('type')
+            ->add('type', TextType::class)
+	        ->add('submit', SubmitType::class)
         ;
     }
 

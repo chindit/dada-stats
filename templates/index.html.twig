@@ -7,10 +7,42 @@
 	{% for chart in charts %}
 	<div class="col-xs-12 col-md-6 col-lg-6">
 		{{ chart.title }}
+		<canvas id="myChart"></canvas>
+		<script>
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var chart = new Chart(ctx, {
+				// The type of chart we want to create
+				type: 'line',
+
+				// The data for our dataset
+				data: {
+					labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July',
+						'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July',
+						'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					datasets: [{
+						label: 'My First dataset',
+						backgroundColor: 'rgb(155, 99, 232)',
+						borderColor: 'rgb(155, 99, 232)',
+						data: [0, 5, 35, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11,
+							23,
+							42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42]
+					},{
+						label: 'My IFirst dataset',
+						backgroundColor: 'rgb(255, 99, 132)',
+						borderColor: 'rgb(255, 99, 132)',
+						data: [0, 10, 5, 20, 30, 40, 15, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23,
+							42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42, 0, 10, 5, 2, 20, 30, 45, 5, 7, 9, 3, 11, 23, 42]
+					},
+						]
+				},
+
+				// Configuration options go here
+				options: {}
+			});
+		</script>
 	</div>
 	{% else %}
 		<p>Actually, there are not charts</p>
 	{% endfor %}
 </div>
-
 {% endblock %}

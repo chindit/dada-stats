@@ -28,6 +28,10 @@ class PollData
 	/**
 	 * @ORM\Column(type="string", length=25)
 	 */
+	private $key;
+	/**
+	 * @ORM\Column(type="string", length=75)
+	 */
 	private $name;
 
     /**
@@ -45,20 +49,33 @@ class PollData
 	 */
 	private $date;
 
-	public function __construct(?string $name = null, ?float $value = null)
+	public function __construct(?string $key = null, ?float $value = null, ?string $name = null)
 	{
-		if (null !== $name && null !== $value)
+		if (null !== $key && null !== $value)
 		{
-			$this->name = $name;
+			$this->key = $key;
 			$this->value = $value;
 		}
 
+		$this->name = $name;
 		$this->date = new DateTimeImmutable();
 	}
 
 	public function getId(): ?int
 	{
 		return $this->id;
+	}
+
+	public function getKey(): ?string
+	{
+		return $this->key;
+	}
+
+	public function setKey(string $key): self
+	{
+		$this->key = $key;
+
+		return $this;
 	}
 
 	public function getName(): ?string

@@ -28,8 +28,6 @@ class ChartType extends AbstractType
         $builder
             ->add('title', TextType::class, ['required' => true, 'attr' => ['maxlength' => 50]])
             ->add('metrics', ChoiceType::class, ['choices' => $this->pollDataService->getPollDataTypeList(), 'multiple' => true])
-            ->add('xAxisLegend', TextType::class, ['required' => true, 'attr' => ['maxlength' => 50]])
-            ->add('yAxisLegend', TextType::class, ['required' => true, 'attr' => ['maxlength' => 50]])
             ->add('type', TextType::class)
 	        ->add('submit', SubmitType::class)
         ;

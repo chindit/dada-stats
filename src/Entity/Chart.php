@@ -66,6 +66,13 @@ class Chart
         return $this;
     }
 
+    public function setMetrics(array $metrics): self
+    {
+        $this->metrics = $metrics;
+
+        return $this;
+    }
+
     public function getMetrics(): ?array
     {
         return $this->metrics;

@@ -27,7 +27,7 @@ class PollDataService
 
 		foreach ($databaseTypes as $databaseType)
 		{
-			$typesByCategories[$databaseType['category']][$databaseType['name']] = $databaseType['name'];
+			$typesByCategories[$databaseType['category']][$databaseType['name']] = $databaseType['key'];
 		}
 
 		return $typesByCategories;

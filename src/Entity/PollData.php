@@ -12,83 +12,84 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table("statistics",
  *     uniqueConstraints={
  *        @ORM\UniqueConstraint(name="poll_data_unique",
- *            columns={"name", "date"})
+ *            columns={"key_data", "date_data"})
  *     }
  * )
  */
 class PollData
 {
-	/**
-	 * @ORM\Id()
-	 * @ORM\GeneratedValue()
-	 * @ORM\Column(type="integer")
-	 */
-	private $id;
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-	/**
-	 * @ORM\Column(type="string", length=25)
-	 */
-	private $key;
-	/**
-	 * @ORM\Column(type="string", length=75)
-	 */
-	private $name;
+    /**
+     * @ORM\Column(type="string", length=25, name="key_data")
+     */
+    private $key;
+
+    /**
+     * @ORM\Column(type="string", length=75)
+     */
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=25)
      */
     private $category;
 
-	/**
-	 * @ORM\Column(type="float")
-	 */
-	private $value;
+    /**
+     * @ORM\Column(type="float", name="value_data")
+     */
+    private $value;
 
-	/**
-	 * @ORM\Column(type="datetime")
-	 */
-	private $date;
+    /**
+     * @ORM\Column(type="datetime", name="date_data")
+     */
+    private $date;
 
-	public function __construct(?string $key = null, ?float $value = null, ?string $name = null)
-	{
-		if (null !== $key && null !== $value)
-		{
-			$this->key = $key;
-			$this->value = $value;
-		}
+    public function __construct(?string $key = null, ?float $value = null, ?string $name = null)
+    {
+        if (null !== $key && null !== $value)
+        {
+            $this->key = $key;
+            $this->value = $value;
+        }
 
-		$this->name = $name;
-		$this->date = new DateTimeImmutable();
-	}
+        $this->name = $name;
+        $this->date = new DateTimeImmutable();
+    }
 
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-	public function getKey(): ?string
-	{
-		return $this->key;
-	}
+    public function getKey(): ?string
+    {
+        return $this->key;
+    }
 
-	public function setKey(string $key): self
-	{
-		$this->key = $key;
+    public function setKey(string $key): self
+    {
+        $this->key = $key;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getName(): ?string
-	{
-		return $this->name;
-	}
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
-	public function setName(string $name): self
-	{
-		$this->name = $name;
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
-		return $this;
-	}
+        return $this;
+    }
 
     public function getCategory(): ?string
     {
@@ -102,27 +103,27 @@ class PollData
         return $this;
     }
 
-	public function getValue(): ?float
-	{
-		return $this->value;
-	}
+    public function getValue(): ?float
+    {
+        return $this->value;
+    }
 
-	public function setValue(float $value): self
-	{
-		$this->value = $value;
+    public function setValue(float $value): self
+    {
+        $this->value = $value;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getDate(): ?DateTimeInterface
-	{
-		return $this->date ?? new DateTimeImmutable();
-	}
+    public function getDate(): DateTimeInterface
+    {
+        return $this->date ?? new DateTimeImmutable();
+    }
 
-	public function setDate(DateTimeInterface $date): self
-	{
-		$this->date = $date;
+    public function setDate(DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
-		return $this;
-	}
+        return $this;
+    }
 }

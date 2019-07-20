@@ -23,9 +23,26 @@ class PollDataRepository extends ServiceEntityRepository
 	public function findAllAvailableDataType(): array
 	{
 		return $this->createQueryBuilder('pd')
-			->select('pd.name', 'pd.category')
+			->select('pd.name', 'pd.category', 'pd.key')
 			->distinct()
 			->getQuery()
 			->getArrayResult();
 	}
+
+    /**
+     * @param \DateTimeImmutable $lowerLimit
+     * @param array $types
+     * @return PollData[]
+     */
+	public function getChartData(\DateTimeImmutable $lowerLimit, array $types): array
+    {
+        return $this->createQueryBuilder('pd')
+            ->where('pd.key IN(:types)')
+            ->andWhere('pd.date > :lowerLimit')
+            ->setParameter('types', $types)
+            ->setParameter('lowerLimit', $lowerLimit)
+            ->orderBy('pd.id', 'ASC')
+            ->getQuery()
+            ->getReSult();
+    }
 }

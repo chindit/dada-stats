@@ -38,16 +38,18 @@ class ChartService
 
             $labels = [];
             $data = [];
+            $labels = [];
             foreach ($pollDataForChart as $pollData)
             {
                 $labels[] = $pollData->getDate()->format('H:i:s');
                 $data[$pollData->getKey()][] = $pollData->getValue();
+                $labels[$pollData->getKey()] = $pollData->getName();
             }
 
             $chartModel = new ChartModel('line', $chart->getTitle(), array_values(array_unique($labels)));
             foreach ($data as $name => $values)
             {
-                $chartModel->addDataset(new DatasetModel($name, $values));
+                $chartModel->addDataset(new DatasetModel($labels[$name], $values));
             }
             $chartData[] = $chartModel;
         }

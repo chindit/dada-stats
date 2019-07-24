@@ -44,7 +44,7 @@ class ChartService
 				$labels[] = $pollData->getDate()->format('H:i:s');
 				if (\in_array($pollData->getKey(), ['rx_bytes', 'tx_bytes'], true))
 				{
-					$data[ $pollData->getKey() ] = round($pollData->getValue() / 60000000, 2);
+					$data[ $pollData->getKey() ][] = round($pollData->getValue() / 60000000, 2);
 				}
 				else
 				{

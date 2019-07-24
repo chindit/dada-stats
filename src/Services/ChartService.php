@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-
 use App\Model\ChartModel;
 use App\Model\DatasetModel;
 use App\Repository\ChartRepository;
@@ -11,49 +10,57 @@ use App\Repository\PollDataRepository;
 
 class ChartService
 {
-    /**
-     * @var ChartRepository
-     */
-    private $chartRepository;
-    /**
-     * @var PollDataRepository
-     */
-    private $pollDataRepository;
+	/**
+	 * @var ChartRepository
+	 */
+	private $chartRepository;
 
-    public function __construct(ChartRepository $chartRepository, PollDataRepository $pollDataRepository)
-    {
-        $this->chartRepository = $chartRepository;
-        $this->pollDataRepository = $pollDataRepository;
-    }
+	/**
+	 * @var PollDataRepository
+	 */
+	private $pollDataRepository;
 
-    public function getAllChartData(): array
-    {
-        $charts = $this->chartRepository->findAll();
+	public function __construct(ChartRepository $chartRepository, PollDataRepository $pollDataRepository)
+	{
+		$this->chartRepository = $chartRepository;
+		$this->pollDataRepository = $pollDataRepository;
+	}
 
-        $chartData = [];
+	public function getAllChartData(): array
+	{
+		$charts = $this->chartRepository->findAll();
 
-        foreach ($charts as $chart)
-        {
-            $pollDataForChart = $this->pollDataRepository->getChartData(new \DateTimeImmutable('-24 hours'), $chart->getMetrics());
+		$chartData = [];
 
-            $labels = [];
-            $data = [];
-            $labels = [];
-            foreach ($pollDataForChart as $pollData)
-            {
-                $labels[] = $pollData->getDate()->format('H:i:s');
-                $data[$pollData->getKey()][] = $pollData->getValue();
-                $labels[$pollData->getKey()] = $pollData->getName();
-            }
+		foreach ($charts as $chart)
+		{
+			$pollDataForChart = $this->pollDataRepository->getChartData(new \DateTimeImmutable('-24 hours'), $chart->getMetrics());
 
-            $chartModel = new ChartModel('line', $chart->getTitle(), array_values(array_unique($labels)));
-            foreach ($data as $name => $values)
-            {
-                $chartModel->addDataset(new DatasetModel($labels[$name], $values));
-            }
-            $chartData[] = $chartModel;
-        }
+			$labels = [];
+			$data = [];
+			$labels = [];
+			foreach ($pollDataForChart as $pollData)
+			{
+				$labels[] = $pollData->getDate()->format('H:i:s');
+				if (\in_array($pollData->getKey(), ['rx_bytes', 'tx_bytes'], true))
+				{
+					$data[ $pollData->getKey() ] = round($pollData->getValue() / 60000000, 2);
+				}
+				else
+				{
+					$data[ $pollData->getKey() ][] = $pollData->getValue();
+				}
+				$labels[ $pollData->getKey() ] = $pollData->getName();
+			}
 
-        return $chartData;
-    }
+			$chartModel = new ChartModel('line', $chart->getTitle(), array_values(array_unique($labels)));
+			foreach ($data as $name => $values)
+			{
+				$chartModel->addDataset(new DatasetModel($labels[ $name ], $values));
+			}
+			$chartData[] = $chartModel;
+		}
+
+		return $chartData;
+	}
 }
